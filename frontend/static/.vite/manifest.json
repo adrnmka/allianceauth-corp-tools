@@ -1,42 +1,55 @@
 {
-  "_@app-libs-Cb_auZyT.js": {
-    "file": "assets/@app-libs-Cb_auZyT.js",
+  "_@app-libs-CbSStN2u.js": {
+    "file": "assets/@app-libs-CbSStN2u.js",
     "name": "@app-libs"
   },
-  "_@bootstrap-libs-DZc4rDL4.js": {
-    "file": "assets/@bootstrap-libs-DZc4rDL4.js",
+  "_@bootstrap-libs-CnI-zhds.js": {
+    "file": "assets/@bootstrap-libs-CnI-zhds.js",
     "name": "@bootstrap-libs",
-    "imports": ["_@app-libs-Cb_auZyT.js"]
+    "imports": [
+      "_@app-libs-CbSStN2u.js"
+    ]
   },
-  "_@lang-libs-Bb81l5PV.js": {
-    "file": "assets/@lang-libs-Bb81l5PV.js",
+  "_@lang-libs-CCa0imB4.js": {
+    "file": "assets/@lang-libs-CCa0imB4.js",
     "name": "@lang-libs",
-    "imports": ["_@app-libs-Cb_auZyT.js"],
-    "dynamicImports": ["_browser-ponyfill-B9iOa5IF.js"]
+    "imports": [
+      "_@app-libs-CbSStN2u.js"
+    ],
+    "dynamicImports": [
+      "_browser-ponyfill-rhtzORs-.js"
+    ]
   },
-  "_@react-libs-CeaqA_Hv.js": {
-    "file": "assets/@react-libs-CeaqA_Hv.js",
+  "_@react-libs-BsTbNYW1.js": {
+    "file": "assets/@react-libs-BsTbNYW1.js",
     "name": "@react-libs",
-    "imports": ["_@app-libs-Cb_auZyT.js", "_@bootstrap-libs-DZc4rDL4.js"]
+    "imports": [
+      "_@app-libs-CbSStN2u.js",
+      "_@bootstrap-libs-CnI-zhds.js"
+    ]
   },
-  "_browser-ponyfill-B9iOa5IF.js": {
-    "file": "assets/browser-ponyfill-B9iOa5IF.js",
+  "_browser-ponyfill-rhtzORs-.js": {
+    "file": "assets/browser-ponyfill-rhtzORs-.js",
     "name": "browser-ponyfill",
     "isDynamicEntry": true,
-    "imports": ["_@app-libs-Cb_auZyT.js"]
+    "imports": [
+      "_@app-libs-CbSStN2u.js"
+    ]
   },
   "index.html": {
-    "file": "assets/index-BeGYDsWF.js",
+    "file": "assets/index-B7B6drNx.js",
     "name": "index",
     "src": "index.html",
     "isEntry": true,
     "imports": [
-      "_@app-libs-Cb_auZyT.js",
-      "_@bootstrap-libs-DZc4rDL4.js",
-      "_@react-libs-CeaqA_Hv.js",
-      "_@lang-libs-Bb81l5PV.js"
+      "_@app-libs-CbSStN2u.js",
+      "_@bootstrap-libs-CnI-zhds.js",
+      "_@react-libs-BsTbNYW1.js",
+      "_@lang-libs-CCa0imB4.js"
     ],
-    "css": ["static/corptools/bs5/static/css/index-Bo54A6Zv.css"],
+    "css": [
+      "static/corptools/bs5/static/css/index-B7hQrVZ6.css"
+    ],
     "assets": [
       "static/corptools/bs5/static/img/omega_128-B8POqXI6.png",
       "static/corptools/bs5/static/img/skillInjector_64-CiNLYJYo.png",
