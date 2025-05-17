@@ -22,7 +22,7 @@ export default defineConfig({
   build: {
     sourcemap: true,
     manifest: true,
-    outDir: "static/",
+    outDir: "build/static/",
     rollupOptions: {
       output: {
         // this is to make sure our static files are in the write place when we build
