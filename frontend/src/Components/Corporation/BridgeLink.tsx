@@ -23,11 +23,20 @@ export const BridgeLink = ({ start, end }: any) => {
           </div>
 
           <div className="d-flex justify-content-evenly align-content-center flex-column">
-            <Badge bg={start.ozone > 2500000 ? "info" : "danger"}>
-              {" "}
-              Ozone: {start.ozone.toLocaleString()}
-            </Badge>
-            <Badge bg={start.expires > 13 ? "info" : "danger"}> Fuel: {start.expires} days</Badge>
+          {typeof start.ozone === 'number' ? (
+              <Badge bg={start.ozone > 2500000 ? "info" : "danger"}>
+                Ozone: {start.ozone.toLocaleString()}
+              </Badge>
+            ) : (
+              <Badge bg="secondary">Ozone: Unknown</Badge>
+            )}
+            {typeof start.expires === 'number' ? (
+              <Badge bg={start.expires > 13 ? "info" : "danger"}>
+                Fuel: {start.expires} days
+              </Badge>
+            ) : (
+              <Badge bg="secondary">Fuel: Unknown</Badge>
+            )}
           </div>
           {start.active ? (
             <></>
@@ -74,12 +83,20 @@ export const BridgeLink = ({ start, end }: any) => {
           {end.system_name ? (
             <>
               <div className="d-flex justify-content-evenly align-content-center flex-column">
-                <Badge className="flex-child" bg={end.ozone > 2500000 ? "info" : "danger"}>
-                  Ozone: {end.ozone.toLocaleString()}
-                </Badge>
-                <Badge className="flex-child" bg={end.expires > 13 ? "info" : "danger"}>
-                  Fuel: {end.expires} Days
-                </Badge>
+                {typeof end.ozone === 'number' ? (
+                  <Badge className="flex-child" bg={end.ozone > 2500000 ? "info" : "danger"}>
+                    Ozone: {end.ozone.toLocaleString()}
+                  </Badge>
+                ) : (
+                  <Badge className="flex-child" bg="secondary">Ozone: Unknown</Badge>
+                )}
+                {typeof end.expires === 'number' ? (
+                  <Badge className="flex-child" bg={end.expires > 13 ? "info" : "danger"}>
+                    Fuel: {end.expires} Days
+                  </Badge>
+                ) : (
+                  <Badge className="flex-child" bg="secondary">Fuel: Unknown</Badge>
+                )}
               </div>
               <div
                 className={`${styles.end} ${end.active ? styles.gateActive : styles.gateInactive}`}
