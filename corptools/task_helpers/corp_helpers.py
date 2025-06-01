@@ -452,6 +452,11 @@ def update_corp_wallet_division(corp_id, full_update=False):  # pagnated results
     return f"Finished wallet divs for: {audit_corp.corporation.corporation_name}"
 
 
+def chunk_list(data, size=1000):
+    for i in range(0, len(data), size):
+        yield data[i : i + size]
+
+
 def update_corp_structures(corp_id, force_refresh=False):  # pagnated results
     # logger.debug("Started structures for: %s" % (str(character_id)))
 
@@ -500,31 +505,38 @@ def update_corp_structures(corp_id, force_refresh=False):  # pagnated results
                         _corporation.corporation.corporation_id, _req_scopes, _req_roles
                     )
                     if _token:
-                        locations = providers.esi.client.Assets.post_corporations_corporation_id_assets_locations(
-                            corporation_id=_corporation.corporation.corporation_id,
-                            item_ids=[_structure.get("structure_id")],
-                            token=token.valid_access_token(),
-                        ).result()
+                        structure_id = _structure.get("structure_id")
+                        locations = []
 
-                        _location = locations[0]
+                        for chunk in chunk_list([structure_id], size=1000):
+                            result = providers.esi.client.Assets.post_corporations_corporation_id_assets_locations(
+                                corporation_id=_corporation.corporation.corporation_id,
+                                item_ids=chunk,
+                                token=_token.valid_access_token(),
+                            ).result()
+                            locations.extend(result)
 
-                        url = (
-                            "https://www.fuzzwork.co.uk/api/nearestCelestial.php?x=%s&y=%s&z=%s&solarsystemid=%s"
-                            % (
-                                (str(_location["position"].get("x"))),
-                                (str(_location["position"].get("y"))),
-                                (str(_location["position"].get("z"))),
-                                (str(_structure.get("system_id"))),
+                        if locations:
+                            _location = locations[0]
+
+                            url = (
+                                "https://www.fuzzwork.co.uk/api/nearestCelestial.php?x=%s&y=%s&z=%s&solarsystemid=%s"
+                                % (
+                                    str(_location["position"].get("x")),
+                                    str(_location["position"].get("y")),
+                                    str(_location["position"].get("z")),
+                                    str(_structure.get("system_id")),
+                                )
                             )
-                        )
 
-                        r = requests.get(url)
-                        fuzz_result = r.json()
+                            r = requests.get(url)
+                            fuzz_result = r.json()
 
-                        celestial = StructureCelestial.objects.create(
-                            structure_id=_structure.get("structure_id"),
-                            celestial_name=fuzz_result.get("itemName"),
-                        )
+                            celestial = StructureCelestial.objects.create(
+                                structure_id=structure_id,
+                                celestial_name=fuzz_result.get("itemName"),
+                            )
+
                 except ObjectDoesNotExist:
                     celestial = None
                 except Exception:
